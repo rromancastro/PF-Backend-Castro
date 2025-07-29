@@ -8,11 +8,13 @@ import path from 'path';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 
+import { swaggerDocs } from './swagger.js';
+
+import viewsRouter from './routes/views.router.js';
 import usersRouter from './routes/users.router.js';
 import petsRouter from './routes/pets.router.js';
 import adoptionsRouter from './routes/adoption.router.js';
 import sessionsRouter from './routes/sessions.router.js';
-import viewsRouter from './routes/views.router.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,6 +37,7 @@ app.use('/api/pets',petsRouter);
 app.use('/api/adoptions',adoptionsRouter);
 app.use('/api/sessions',sessionsRouter);
 
+
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -46,5 +49,7 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch((error) => {
   console.error(' Error al conectar a MongoDB:', error);
 });
+
+swaggerDocs(app);
 
 export default app;

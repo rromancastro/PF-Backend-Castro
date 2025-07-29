@@ -9,26 +9,94 @@
  * @swagger
  * /api/users:
  *   get:
- *     summary: obtener todos los usuarios
+ *     summary: Obtener todos los usuarios
  *     tags: [Users]
  *     responses:
  *       200:
  *         description: Lista de usuarios
- *   get/uid:
- *     summary: obtener un usuario
+ */
+
+/**
+ * @swagger
+ * /api/users/{uid}:
+ *   get:
+ *     summary: Obtener un usuario por ID
  *     tags: [Users]
  *     parameters:
- *       - id: uid
- *   put/uid:
- *     summary: actualizar un usuario
+ *       - in: path
+ *         name: uid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: Usuario encontrado
+ *       404:
+ *         description: Usuario no encontrado
+ *
+ *   put:
+ *     summary: Actualizar un usuario por ID
  *     tags: [Users]
  *     parameters:
- *       - data: data
- *   delete/uid:
- *     summary: eliminar un usuario
+ *       - in: path
+ *         name: uid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             example:
+ *               first_name: Juan
+ *               last_name: Pérez
+ *     responses:
+ *       200:
+ *         description: Usuario actualizado
+ *       404:
+ *         description: Usuario no encontrado
+ *
+ *   delete:
+ *     summary: Eliminar un usuario por ID
  *     tags: [Users]
  *     parameters:
- *       - id: uid  
+ *       - in: path
+ *         name: uid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del usuario
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado
+ *       404:
+ *         description: Usuario no encontrado
+ */
+
+/**
+ * @swagger
+ * /api/users/mock/{count}:
+ *   post:
+ *     summary: Generar usuarios mock
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: count
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Cantidad de usuarios mock a generar
+ *     responses:
+ *       200:
+ *         description: Usuarios mock generados exitosamente
+ *       400:
+ *         description: Parámetro inválido
+ *       500:
+ *         description: Error en el servidor
  */
 
 import { Router } from 'express';
